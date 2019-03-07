@@ -62,8 +62,6 @@ public class Main {
 
                     acesso.deletarPasta(nomePasta);
             }
-            acesso.listarEmailsDoInbox();
-            //acesso.listarPastas();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
