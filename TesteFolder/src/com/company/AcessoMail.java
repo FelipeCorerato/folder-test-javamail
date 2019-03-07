@@ -79,7 +79,8 @@ public class AcessoMail {
         mensagem.setRecipients(Message.RecipientType.TO, toUser);
         mensagem.setSubject("Enviando email com JavaMail");//Assunto
         mensagem.setText("Enviei este email utilizando JavaMail com minha conta GMail!");
-        /**Método para enviar a mensagem criada*/
+
+        // metodo para enviar a mensagem criada
         Transport.send(mensagem);
 
         System.out.println("Feito!!!");
