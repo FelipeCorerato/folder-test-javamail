@@ -13,8 +13,10 @@ public class Main {
 
             System.out.println("Bem vindo ao EMAIL. O que deseja fazer?");
             System.out.println("1 - Enviar um e-mail");
-            System.out.println("2 - Listar os e-mails do seu INBOX");
-            System.out.println("3 - Listar as pastas do seu e-mail");
+            System.out.println("2 - Listar todos os e-mails do seu INBOX");
+            System.out.println("3 - Listar todas as pastas do seu e-mail");
+            System.out.println("4 - Renomear uma pasta do seu e-mail");
+            System.out.println("5 - Deletar uma pasta do seu e-mail");
 
             String opcao = input.nextLine();
 
@@ -43,6 +45,22 @@ public class Main {
                 case "3":
                     for(Folder fd:acesso.listarPastas())
                         System.out.println(">> "+fd.getName());
+                    break;
+
+                case "4":
+                    System.out.println("Digite o nome atual da pasta:");
+                    String nomeOriginal = input.nextLine();
+                    System.out.println("Digite o novo nome da pasta:");
+                    String nomeFinal = input.nextLine();
+
+                    acesso.renomearPasta(nomeOriginal, nomeFinal);
+                    break;
+
+                case "5":
+                    System.out.println("Digite o nome da pasta a ser deletada:");
+                    String nomePasta = input.nextLine();
+
+                    acesso.deletarPasta(nomePasta);
             }
             acesso.listarEmailsDoInbox();
             //acesso.listarPastas();

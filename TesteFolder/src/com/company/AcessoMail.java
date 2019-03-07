@@ -11,27 +11,58 @@ import java.util.Properties;
 public class AcessoMail {
 
     protected Session session;
-    protected POP3Store store;
+    protected Store store;
     protected String userName, password;
 
     public AcessoMail (String userName, String password) throws Exception{
 
+        // credenciais usadas no login
         this.userName = userName;
         this.password = password;
 
 
-        //create properties field
+        // cria o nosso campo de propriedades
         Properties properties = new Properties();
 
+        // as linhas abaixo preenchem as propriedades com informacoes necessarias para o login
+        properties.put("mail.imap.host", "imap.gmail.com");
+        properties.put("mail.imap.port", "imap");
+        properties.put("mail.imap.starttls.enable", "true");
+
+
+        /* codigo caso seja desejado fazer a conexao em POP3
         properties.put("mail.pop3.host", "pop.gmail.com");
         properties.put("mail.pop3.port", "995");
         properties.put("mail.pop3.starttls.enable", "true");
+        */
+
+        // cria a sessao para fazer a conexao
         Session emailSession = Session.getDefaultInstance(properties);
 
-        //create the POP3 store object and connect with the pop server
-        store = (POP3Store) emailSession.getStore("pop3s");
+        // inicializa a store e conecta com o servidor pop3
+        store = emailSession.getStore("imaps");
+        store.connect("imap.gmail.com", userName, password);
+    }
 
-        store.connect("pop.gmail.com", userName, password);
+    public void renomearPasta(String nomeOriginal, String nomeFinal) throws Exception {
+        Folder pasta = store.getFolder(nomeOriginal);
+
+        if (!pasta.exists())
+            throw new FolderNotFoundException();
+        else
+            pasta.renameTo(store.getFolder(nomeFinal));
+    }
+
+    public boolean deletarPasta(String nome) throws Exception {
+        Folder pasta = store.getFolder(nome);
+
+        if (!pasta.exists())
+            throw new FolderNotFoundException();
+
+        if (pasta.isOpen())
+            pasta.close();
+
+        return pasta.delete(true);
     }
 
     public void enviarEmail(String destinatario) {
@@ -59,7 +90,7 @@ public class AcessoMail {
 
     public Message[] listarEmailsDoInbox() throws Exception {
         //create the folder object and open it
-        POP3Folder emailFolder = (POP3Folder) store.getFolder("INBOX");
+        Folder emailFolder = store.getFolder("INBOX");
         emailFolder.open(Folder.READ_ONLY);
 
         // retrieve the messages from the folder in an array and print it
