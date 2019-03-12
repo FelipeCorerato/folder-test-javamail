@@ -15,8 +15,9 @@ public class Main {
             System.out.println("1 - Enviar um e-mail");
             System.out.println("2 - Listar todos os e-mails do seu INBOX");
             System.out.println("3 - Listar todas as pastas do seu e-mail");
-            System.out.println("4 - Renomear uma pasta do seu e-mail");
-            System.out.println("5 - Deletar uma pasta do seu e-mail");
+            System.out.println("4 - Criar uma pasta no seu e-mail");
+            System.out.println("5 - Renomear uma pasta do seu e-mail");
+            System.out.println("6 - Deletar uma pasta do seu e-mail");
 
             String opcao = input.nextLine();
 
@@ -48,6 +49,13 @@ public class Main {
                     break;
 
                 case "4":
+                    System.out.println("Digite o nome da pasta a ser criada:");
+                    String nomePasta = input.nextLine();
+
+                    acesso.criarPasta(nomePasta);
+                    break;
+
+                case "5":
                     System.out.println("Digite o nome atual da pasta:");
                     String nomeOriginal = input.nextLine();
                     System.out.println("Digite o novo nome da pasta:");
@@ -56,11 +64,12 @@ public class Main {
                     acesso.renomearPasta(nomeOriginal, nomeFinal);
                     break;
 
-                case "5":
+                case "6":
                     System.out.println("Digite o nome da pasta a ser deletada:");
-                    String nomePasta = input.nextLine();
+                    nomePasta = input.nextLine();
 
                     acesso.deletarPasta(nomePasta);
+                    break;
             }
         }
         catch (Exception e) {

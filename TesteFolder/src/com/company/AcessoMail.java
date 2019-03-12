@@ -55,6 +55,16 @@ public class AcessoMail {
         pasta.renameTo(minhaStore.getFolder(nomeFinal));
     }
 
+    public void criarPasta(String nome) throws Exception {
+        Folder minhaPasta = minhaStore.getFolder(nome);
+        if (!minhaPasta.exists()) {
+            if (minhaPasta.create(Folder.HOLDS_MESSAGES)) {
+                minhaPasta.setSubscribed(true);
+                System.out.println("Folder was created successfully");
+            }
+        }
+    }
+
     public boolean deletarPasta(String nome) throws Exception {
         Folder pasta = minhaStore.getFolder(nome);
 
