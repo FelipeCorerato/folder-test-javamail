@@ -11,10 +11,10 @@ public class AcessoMail {
     protected Store minhaStore;
     protected String userName, senha;
 
-    public AcessoMail (String userName, String senha) throws Exception{
+    public AcessoMail (String username, String senha) throws Exception{
 
         // credenciais usadas no login
-        this.userName = userName;
+        this.userName = username;
         this.senha = senha;
 
 
@@ -40,7 +40,7 @@ public class AcessoMail {
 
         // inicializa a minhaStore e conecta com o servidor pop3
         minhaStore = sessaoDoEmail.getStore("imaps");
-        minhaStore.connect("imap.gmail.com", userName, senha);
+        minhaStore.connect("imap.gmail.com", username, senha);
     }
 
     public void renomearPasta(String nomeOriginal, String nomeFinal) throws Exception {
